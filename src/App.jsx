@@ -1,35 +1,84 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { Tab, Search, countOccurrences } from './Ecmascript/fonction';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [searchResult, setSearchResult] = useState(null);
+  const [occurrencesResult, setOccurrencesResult] = useState(null);
+  const [totalGrades, setTotalGrades] = useState(null);
 
+  // Exemple d'utilisation de la fonction Search
+  const handleSearch = () => {
+    const result = Search(2, Tab); // Rechercher l'objet avec l'ID 2
+    setSearchResult(result);
+  };
+
+  const handleCountOccurrences = () => {
+    const inputArray = [
+      ['pomme', 'banane'],
+      ['banane', 'orange'],
+      ['pomme', 'orange', 'kiwi'],
+      ['banane', 'kiwi']
+    ];
+    const result = countOccurrences(inputArray);
+    setOccurrencesResult(result);
+  };
+
+  const students = [
+    { name: "Alice", grade: 45 },
+    { name: "Bob", grade: 60 },
+    { name: "Charlie", grade: 30 },
+    { name: "David", grade: 55 },
+    { name: "Eve", grade: 70 }
+  ];
+
+  const calculateTotalGrades = () => {
+    const updatedStudents = students.map(student => {
+      if (student.grade < 50) {
+        return { ...student, grade: student.grade + 15 };
+      }
+      return student;
+    });
+
+    const filteredStudents = updatedStudents.filter(student => student.grade > 50);
+    const total = filteredStudents.reduce((acc, student) => acc + student.grade, 0);
+
+    setTotalGrades(total);
+  };
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>Recherche d'objets par ID</h1>
+      <button onClick={handleSearch}>Rechercher l'objet avec l'ID 2</button>
+
+      {searchResult && (
+        <div>
+          <h2>Résultat de la recherche :</h2>
+          <p>Nom : {searchResult.name}</p>
+          <p>Âge : {searchResult.age}</p>
+          <p>ID : {searchResult.id}</p>
+        </div>
+      )}
+      
+      <h1>Compteur d'occurrences</h1>
+      <button onClick={handleCountOccurrences}>Compter les occurrences</button>
+
+      {occurrencesResult && (
+        <div>
+          <h2>Résultat :</h2>
+          <pre>{JSON.stringify(occurrencesResult, null, 2)}</pre>
+        </div>
+      )}
+
+    <h1>Calcul du total des notes</h1>
+      <button onClick={calculateTotalGrades}>Calculer le total des notes</button>
+
+      {totalGrades !== null && (
+        <div>
+          <h2>Total des notes : {totalGrades}</h2>
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
