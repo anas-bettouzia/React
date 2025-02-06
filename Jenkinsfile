@@ -8,7 +8,7 @@ pipeline {
             steps {
                 git branch: 'master', 
                     url: 'https://github.com/anas-bettouzia/jenkins.git',
-                    credentialsId: 'github-credentials'
+                    credentialsId: 'git-token'
             }
         }
         stage('Build') {
