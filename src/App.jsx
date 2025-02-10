@@ -1,8 +1,19 @@
 import { useState } from 'react';
 import { Tab, Search, countOccurrences } from './Ecmascript/fonction';
+import CounterC from './CounterC';
 import './App.css';
+import CounterF from './CounterF';
+import Pokemon from './Pokemon';
+import Header from './Header';
+import Footer from './Footer';
+import ListManager from './ListManager';
+import ColorBox from './Couleur';
+import NotesManager from './Notes';
+import TodoList from './ToDo';
+
 
 function App() {
+
   const [searchResult, setSearchResult] = useState(null);
   const [occurrencesResult, setOccurrencesResult] = useState(null);
   const [totalGrades, setTotalGrades] = useState(null);
@@ -47,6 +58,7 @@ function App() {
   };
   return (
     <div>
+      <Header/>
       <h1>Recherche d'objets par ID</h1>
       <button onClick={handleSearch}>Rechercher l'objet avec l'ID 2</button>
 
@@ -77,6 +89,23 @@ function App() {
           <h2>Total des notes : {totalGrades}</h2>
         </div>
       )}
+            <CounterC />
+            <CounterF />
+            <Pokemon />
+            <div>
+      <h1>Gestion de liste dynamique</h1>
+      <ListManager initialItems={["React", "Angular", "VueJs"]} />
+
+      <h2>Changement de Couleur</h2>
+      <ColorBox initialColor="#ff0000" colorOptions={["#ff0000", "#00ff00", "#0000ff", "#ffff00"]} />
+
+      <h2>Gestionnaire de Notes</h2>
+      <NotesManager initialNotes={[12, 15, 18]} />
+
+      <h2>Todo List</h2>
+      <TodoList initialTasks={[{ name: "Réviser React", priority: "Haute", completed: false }]} />
+    </div>
+            <Footer/>
     </div>
   );
 }
