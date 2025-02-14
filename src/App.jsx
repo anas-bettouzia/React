@@ -10,7 +10,7 @@ import ListManager from './ListManager';
 import ColorBox from './Couleur';
 import NotesManager from './Notes';
 import TodoList from './ToDo';
-
+import Events from './components/Events';
 
 function App() {
 
@@ -59,7 +59,10 @@ function App() {
   return (
     <div>
       <Header/>
-      <h1>Recherche d'objets par ID</h1>
+      <Events/>
+      
+      
+      {/* <h1>Recherche d'objets par ID</h1>
       <button onClick={handleSearch}>Rechercher l'objet avec l'ID 2</button>
 
       {searchResult && (
@@ -104,7 +107,7 @@ function App() {
 
       <h2>Todo List</h2>
       <TodoList initialTasks={[{ name: "Réviser React", priority: "Haute", completed: false }]} />
-    </div>
+    </div> */}
             <Footer/>
     </div>
   );
