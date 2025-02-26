@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";  
 import Placeholder from "../assets/placeholder.jpg";
+import { Link } from "react-router-dom";
 
 const Event = ({ event, onBook }) => {
     const [showMessage, setShowMessage] = useState(false);
@@ -45,6 +46,8 @@ const Event = ({ event, onBook }) => {
                 >
                     {liked ? "Dislike" : "Like"}
                 </Button>
+                <button className="btn btn-outline-primary"> 
+                    <Link to={`/by/price/${event.price}`}> Voir Details</Link></button>
             </Card.Body>
         </Card>
     );

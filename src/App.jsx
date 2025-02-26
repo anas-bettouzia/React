@@ -1,18 +1,49 @@
-import { useState } from 'react';
+import { lazy, useState } from 'react';
 import { Tab, Search, countOccurrences } from './Ecmascript/fonction';
 import CounterC from './CounterC';
 import './App.css';
 import CounterF from './CounterF';
 import Pokemon from './Pokemon';
-import Header from './Header';
+import Header from './components/Header';
 import Footer from './Footer';
 import ListManager from './ListManager';
 import ColorBox from './Couleur';
 import NotesManager from './Notes';
 import TodoList from './ToDo';
 import Events from './components/Events';
+import Home from './components/Home';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Login from './components/Login';
+import AjouterEvent from './components/AjouterEvent';
+import EventPrice from './components/EventPrice';
+import ErrorPage from './components/ErrorPage';
+//const Home = lazy(() => import('./components/Home'));
 
 function App() {
+  return (
+    <>
+
+    <Routes>
+    <Route path="/events" element={<Events />} />
+    <Route path="/login" element={<Navigate to ="/signin" replace />}></Route>
+    <Route path="/signin" element={<Login />} />
+    <Route path="/AjouterEvent" element={<AjouterEvent />} />
+    <Route path="/by/price/:price" element={<EventPrice />} />
+    <Route exact path="/" element={<Home />} />
+    <Route path="*" element={<ErrorPage />} />
+    </Routes>
+    </>
+  );
+
+
+
+
+
+
+
+
+
+  
 
   const [searchResult, setSearchResult] = useState(null);
   const [occurrencesResult, setOccurrencesResult] = useState(null);
