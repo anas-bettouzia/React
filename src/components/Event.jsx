@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Card, Button, Alert } from "react-bootstrap";  
+import { Card, Button, Alert } from "react-bootstrap";
 import Placeholder from "../assets/placeholder.jpg";
 import { Link } from "react-router-dom";
 
-const Event = ({ event, onBook }) => {
+const Event = ({ event, onBook, onDelete }) => {
     const [showMessage, setShowMessage] = useState(false);
 
     const images = import.meta.glob("../assets/*", { eager: true });
@@ -14,8 +14,9 @@ const Event = ({ event, onBook }) => {
     const handleBook = () => {
         onBook(event.name);
         setShowMessage(true);
-        setTimeout(() => setShowMessage(false), 2000); 
+        setTimeout(() => setShowMessage(false), 2000);
     };
+
     const [liked, setLiked] = useState(false);
     const togglelike = () => {
         setLiked(prevState => !prevState);
@@ -33,21 +34,41 @@ const Event = ({ event, onBook }) => {
 
                 {showMessage && <Alert variant="success">You have booked an event</Alert>}
 
-                <Button 
-                    onClick={handleBook} 
+                <Button
+                    onClick={handleBook}
                     disabled={event.nbTickets === 0}
                 >
                     {event.nbTickets === 0 ? "Sold Out" : "Book an Event"}
                 </Button>
-                <Button 
-                    onClick={togglelike}
-                    variant={liked ? "danger" : "primary"} 
 
+                <Button
+                    onClick={togglelike}
+                    variant={liked ? "danger" : "primary"}
+                    className="ms-2"
                 >
                     {liked ? "Dislike" : "Like"}
                 </Button>
-                <button className="btn btn-outline-primary"> 
-                    <Link to={`/by/price/${event.price}`}> Voir Details</Link></button>
+
+                <Button
+                    variant="warning"
+                    as={Link}
+                    to={`/update-event/${event.id}`}
+                    className="ms-2"
+                >
+                    Update
+                </Button>
+
+                <Button
+                    variant="danger"
+                    onClick={() => onDelete(event.id)}
+                    className="ms-2"
+                >
+                    Delete
+                </Button>
+
+                <Button variant="outline-primary" as={Link} to={`/by/price/${event.price}`} className="ms-2">
+                    Voir Details
+                </Button>
             </Card.Body>
         </Card>
     );

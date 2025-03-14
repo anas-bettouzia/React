@@ -17,6 +17,8 @@ import Login from './components/Login';
 import AjouterEvent from './components/AjouterEvent';
 import EventPrice from './components/EventPrice';
 import ErrorPage from './components/ErrorPage';
+import EventForm from './components/EventForm';
+import UpdateEvent from './components/UpdateEvent';
 //const Home = lazy(() => import('./components/Home'));
 
 function App() {
@@ -27,8 +29,9 @@ function App() {
     <Route path="/events" element={<Events />} />
     <Route path="/login" element={<Navigate to ="/signin" replace />}></Route>
     <Route path="/signin" element={<Login />} />
-    <Route path="/AjouterEvent" element={<AjouterEvent />} />
+    <Route path="/AjouterEvent" element={<EventForm />} />
     <Route path="/by/price/:price" element={<EventPrice />} />
+    <Route path="/update-event/:id" element={<UpdateEvent />} />
     <Route exact path="/" element={<Home />} />
     <Route path="*" element={<ErrorPage />} />
     </Routes>
