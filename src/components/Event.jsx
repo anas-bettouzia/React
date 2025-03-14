@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
 import Placeholder from "../assets/placeholder.jpg";
 import { Link } from "react-router-dom";
+import useFavoriteStore from "../store/useFavoriteStore"; 
 
-const Event = ({ event, onBook, onDelete }) => {
+const Event = ({ event, onBook, onDelete, isFavorite = false }) => {
     const [showMessage, setShowMessage] = useState(false);
+    const { addFavorite, removeFavorite } = useFavoriteStore(); 
 
     const images = import.meta.glob("../assets/*", { eager: true });
     const getImagePath = (img) => {
@@ -20,6 +22,14 @@ const Event = ({ event, onBook, onDelete }) => {
     const [liked, setLiked] = useState(false);
     const togglelike = () => {
         setLiked(prevState => !prevState);
+    };
+
+    const handleAddToFavorites = () => {
+        addFavorite(event); 
+    };
+
+    const handleRemoveFromFavorites = () => {
+        removeFavorite(event.id); 
     };
 
     return (
@@ -69,6 +79,24 @@ const Event = ({ event, onBook, onDelete }) => {
                 <Button variant="outline-primary" as={Link} to={`/by/price/${event.price}`} className="ms-2">
                     Voir Details
                 </Button>
+
+                {isFavorite ? (
+                    <Button
+                        variant="danger"
+                        onClick={handleRemoveFromFavorites}
+                        className="ms-2"
+                    >
+                        Retirer des favoris
+                    </Button>
+                ) : (
+                    <Button
+                        variant="info"
+                        onClick={handleAddToFavorites}
+                        className="ms-2"
+                    >
+                        Ajouter aux favoris
+                    </Button>
+                )}
             </Card.Body>
         </Card>
     );

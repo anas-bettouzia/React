@@ -4,20 +4,17 @@ import { Container, Row, Alert } from "react-bootstrap";
 import Header from "./Header";
 import useCounter from "../store/userCounterStore";
 import useEventStore from "../store/useEventStore";
-import { deleteEvent } from "../services/api";  // Importez la fonction deleteEvent
+import { deleteEvent } from "../services/api"; 
 
 function Events() {
     const [showMessage, setShowMessage] = useState(true);
-
-    // Utilisez le store pour gérer les événements
     const { events, fetchEvents, updateEvent } = useEventStore();
 
     useEffect(() => {
-        fetchEvents();  // Charge les événements au montage du composant
+        fetchEvents(); 
     }, [fetchEvents]);
 
     const handleBookEvent = (eventName) => {
-        // Trouver l'événement à mettre à jour
         const updatedEvents = events.map(event =>
             event.name === eventName && event.nbTickets > 0
                 ? {
@@ -28,15 +25,12 @@ function Events() {
                 : event
         );
 
-        // Mettre à jour les événements dans le store
         updateEvent(updatedEvents);
     };
 
     const handleDeleteEvent = async (id) => {
         try {
-            // Supprimer l'événement via l'API
             await deleteEvent(id);
-            // Recharger la liste des événements après la suppression
             fetchEvents();
         } catch (error) {
             console.error("Error deleting event:", error);
@@ -58,12 +52,12 @@ function Events() {
             )}
             <Row>
                 {Array.isArray(events) && events.length > 0 ? (
-                    events.map((event, index) => (
+                    events.map((event) => (
                         <Event
-                            key={index}
+                            key={event.id}
                             event={event}
                             onBook={handleBookEvent}
-                            onDelete={handleDeleteEvent}  // Passez la fonction de suppression
+                            onDelete={handleDeleteEvent}
                         />
                     ))
                 ) : (

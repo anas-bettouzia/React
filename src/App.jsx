@@ -19,6 +19,7 @@ import EventPrice from './components/EventPrice';
 import ErrorPage from './components/ErrorPage';
 import EventForm from './components/EventForm';
 import UpdateEvent from './components/UpdateEvent';
+import Favorites from './components/Favorites';
 //const Home = lazy(() => import('./components/Home'));
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
     <Route path="/AjouterEvent" element={<EventForm />} />
     <Route path="/by/price/:price" element={<EventPrice />} />
     <Route path="/update-event/:id" element={<UpdateEvent />} />
+    <Route path="/favorites" element={<Favorites />} /> 
     <Route exact path="/" element={<Home />} />
     <Route path="*" element={<ErrorPage />} />
     </Routes>
